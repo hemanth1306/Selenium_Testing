@@ -42,25 +42,31 @@ class BaseClass:
         except Exception as e:
             print(f"Error in initialize_variable: {e}")
             sys.exit(1)
+
+
     def get_testcase_list(self):
         try:
-            testcases_path = os.environ['project_path'] + '//Configutrations//TestExecution.xlsx'
+            testcases_path = os.environ['project_path'] + '\\Configurations\\TestExecution.xlsx'
             df = pd.read_excel(testcases_path, sheet_name='TestCases')
             test_case_list = []
             for row in df.itertuples():
                 if row.RunFlag == 'Y':
-                    test_case=pd.read_excel(testcases_path,row.sheet_name)
-                    for tc_row in test_case.itertuples():
-                        testcasedetails=[]
-                        if tc_row.RunFlag=='Y':
-                            testcasedetails.append(tc_row.TestCaseID)
-                            testcasedetails.append(tc_row.testCaseName)
-                            testcasedetails.append(tc_row.Function)
-                            testcasedetails.append(tc_row.Description)
-                            testcasedetails.append(tc_row.ExpectedResult)
-                            break
+                    test_case=pd.read_excel(testcases_path,row.SheetName)
+                    for row1 in test_case.itertuples():
+                        if row1.RunFlag == 'Y':
+                            testscriptpath=os.environ['Project_path']+row1.TestScriptPath
+                            testscript=pd.read_excel(testscriptpath,'Sheet1')
+                            for tc_row in testscript.itertuples():
+                                testcasedetails=[]
+                                if tc_row.testCaseName==row1.TestCaseName:
+                                    testcasedetails.append(tc_row.TestCaseID)
+                                    testcasedetails.append(tc_row.testCaseName)
+                                    testcasedetails.append(tc_row.Function)
+                                    testcasedetails.append(tc_row.Description)
+                                    testcasedetails.append(tc_row.ExpectedResult)
+                                    break
                     test_case_list.append(testcasedetails)
-
+                    print(test_case_list)
             return test_case_list
         except Exception as e:
             logging.error(f"Error in get_testcase_list: {e}")

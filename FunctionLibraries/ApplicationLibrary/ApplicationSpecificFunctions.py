@@ -17,6 +17,6 @@ class ApplicationSpecificFunctions():
         else:
             functionAction=functionname
 
-        if functionAction=='LOGIN_TO_GMAIL':
-            stepActual,result=fn.loginToGmail(functionmapping,testcasename)
+        if functionAction=='LOGIN_TO_DEMOQA':
+            stepActual,result=fn.navigatedemoqa(functionmapping,testcasename)
         return stepActual,result
