@@ -59,14 +59,16 @@ class BaseClass:
                             for tc_row in testscript.itertuples():
                                 testcasedetails=[]
                                 if tc_row.testCaseName==row1.TestCaseName:
-                                    testcasedetails.append(tc_row.TestCaseID)
-                                    testcasedetails.append(tc_row.testCaseName)
-                                    testcasedetails.append(tc_row.Function)
-                                    testcasedetails.append(tc_row.Description)
-                                    testcasedetails.append(tc_row.ExpectedResult)
+                                    test_case_list.append([
+                                        tc_row.TestCaseID,
+                                        tc_row.testCaseName,
+                                        tc_row.Function,
+                                        tc_row.Description,
+                                        tc_row.ExpectedResult
+                                    ])
+                                    print(test_case_list)
                                     break
-                    test_case_list.append(testcasedetails)
-                    print(test_case_list)
+
             return test_case_list
         except Exception as e:
             logging.error(f"Error in get_testcase_list: {e}")

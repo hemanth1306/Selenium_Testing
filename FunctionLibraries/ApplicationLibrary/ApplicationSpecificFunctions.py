@@ -18,5 +18,5 @@ class ApplicationSpecificFunctions():
             functionAction=functionname
 
         if functionAction=='LOGIN_TO_DEMOQA':
-            stepActual,result=fn.navigatedemoqa(functionmapping,testcasename)
+            stepActual,result=fn.navigatedemoqa(functionmapping)
         return stepActual,result

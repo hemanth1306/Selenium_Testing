@@ -17,5 +17,7 @@ class FunctionDefinations():
         self.stepActual=None
         self.result=None
 
-    def loginToGmail(self,functionmapping):
-        pass
+    def navigatedemoqa(self,functionmapping):
+        self.stepActual='you have reached to the function'
+        result = True
+        return self.stepActual,result

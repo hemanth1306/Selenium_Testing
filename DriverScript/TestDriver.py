@@ -3,7 +3,7 @@ import logging
 from DriverScript.BaseClass import BaseClass
 from datetime import datetime
 from FunctionLibraries.ApplicationLibrary.ApplicationSpecificFunctions import ApplicationSpecificFunctions
-from FunctionLibraries.FrameworkLibrary.ReportGeneration import ReportGeneration
+from FunctionLibraries.FrameworkLibrary.ReportGeneration1 import ReportGeneration
 
 
 class Driver(BaseClass):
@@ -16,13 +16,13 @@ class Driver(BaseClass):
         passedcnt=0
         result=None
         for elements in self.testCaseList:
-            testcnt=testcnt+1
-            testcasename=elements['testCaseName']
-            testfunctionname=elements['Function']
-            testdescription=elements['Description']
-            testexpectedresult=elements['ExpectedResult']
-            step=elements['TestCaseID']
-            testcasestarttime=datetime.now()
+            testcnt += 1
+            step = elements[0]
+            testcasename = elements[1]
+            testfunctionname = elements[2]
+            testdescription = elements[3]
+            testexpectedresult = elements[4]
+            testcasestarttime = datetime.now()
             stepActual,resultbool=ApplicationSpecificFunctions.exceltofunctionmapping(testfunctionname,testcasename)
             if resultbool==True:
                 result='Passed'
@@ -35,8 +35,9 @@ class Driver(BaseClass):
             testcaseendtime=datetime.now()
             logging.info(f"{testcasename} : {testcaseendtime-testcasestarttime}")
             testcaseexecutiontime=testcaseendtime-testcasestarttime
-            testreportlistdetails=[testcnt,testcasename,result,testcasestarttime,testcaseendtime,int(testcaseexecutiontime.total_seconds()),step,testdescription,testexpectedresult,result,stepActual]
+            testreportlistdetails=[testcnt,testcasename,result,testcasestarttime,testcaseendtime,int(testcaseexecutiontime.total_seconds()),step,testdescription,testexpectedresult,stepActual]
             testreportlist.append(testreportlistdetails)
+            print(len(testreportlistdetails))
         testcaseexecutionendtime=datetime.now()
         logging.info('test execution completed')
         testtotalexecutiontime=testcaseexecutionendtime-testcaseexecutionendtime
